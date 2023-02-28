@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import style from './index.module.css';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -44,9 +45,22 @@ const Signup = () => {
     setFormSubmit({ ...formData });
 
     try {
-      const res = await axios
-        .post('http://localhost:8080/auth/register', formData)
-        .then((r) => console.log(r));
+      const res = await axios.post(
+        'http://localhost:8080/auth/register',
+        formData
+      );
+
+      // console.log('res:', res.status);
+      if (
+        formData.email === '' ||
+        formData.phone === '' ||
+        formData.username === ''
+      ) {
+        Swal.fire('Please fill credentials');
+      }
+      // else if (res.status === 200) {
+      //   Swal.fire('Account registered successfully');
+      // }
       return setFormData(res.data);
     } catch (err) {
       if ((err.response.statusText = 'Internal Server Error')) {
@@ -61,11 +75,9 @@ const Signup = () => {
     });
   };
 
-  console.log('formSubmit:', formSubmit);
-
   return (
     <div className={style.container}>
-      <h4 style={{fontSize:'1.5rem',fontWeight:"500"}}>Sign-up</h4>
+      <h4 style={{ fontSize: '1.5rem', fontWeight: '500' }}>Sign-up</h4>
       <form className={style.formcontainer}>
         <input
           type='text'
@@ -109,11 +121,14 @@ const Signup = () => {
         formData.phone === '' ||
         formData.username === '' ||
         formData.password === '' ? (
-          <button type='button' onClick={handlesubmit} disabled >
+          <button type='button' onClick={handlesubmit} disabled>
             Signup
           </button>
         ) : (
-          <button type='button' onClick={handlesubmit} style={{background:"green",color:"white"}}>
+          <button
+            type='button'
+            onClick={handlesubmit}
+            style={{ background: 'green', color: 'white' }}>
             Signup
           </button>
         )}
