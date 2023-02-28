@@ -1,0 +1,19 @@
+ 
+POST user/register ---> user signup
+POST user/login ---->user will login and token will get
+
+authenticated --->verfy the users by verify
+
+
+//How to create ,read,delete,updated for particular person notes .
+end points/-
+POST users/:userId/notes/create -->notes will create here.
+GET users/:userId/notes/create -->reading notes
+PATCH users/:userId/notes/:notesId/update -->notes will edit some feild and it updated .
+DELETE users/:userId/notes/:notesId/delete -->notes will delete here..
+
+
+step 1 ->
+ routes /controllers 
+ 1.importing express
+ 2.importing routes 
